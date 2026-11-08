@@ -3,7 +3,7 @@
 namespace Base\Mailbox\Repository;
 
 use App\Entity\User;
-use Base\Database\Repository\ServiceEntityRepository;
+use Omnibridge\Doctrine\Omnibase\Database\Repository\ServiceEntityRepository;
 use Base\Mailbox\Entity\Message;
 
 /**

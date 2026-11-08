@@ -2,7 +2,7 @@
 
 namespace Base\Mailbox\Repository;
 
-use Base\Database\Repository\ServiceEntityRepository;
+use Omnibridge\Doctrine\Omnibase\Database\Repository\ServiceEntityRepository;
 use Base\Mailbox\Entity\Participant;
 
 /**
