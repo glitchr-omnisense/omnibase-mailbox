@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * The mailbox speaks as a forum does: its French says "tu". A site that says
- * "vous" (glitchr/omnibase's base.translator.politeness: polite) reads each
+ * "vous" (omnisense/omnibase's base.translator.politeness: polite) reads each
  * text in its "._polite" variant when there is one - so every French text
  * that says tu has one here, beside it, with the same parameters.
  *
