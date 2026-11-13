@@ -1,0 +1,577 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Attachment/Office/ConversationAudience.php
+
+		-
+			message: '#^Call to an undefined method Doctrine\\ORM\\EntityRepository\<Base\\Mailbox\\Extension\\Entity\\Attachment\>\:\:findByConversation\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Attachment/Office/VaultAttachments.php
+
+		-
+			message: '#^Parameter \$owner of method Base\\Mailbox\\Attachment\\Office\\VaultAttachments\:\:attach\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Attachment/Office/VaultAttachments.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Attachment\\Office\\VaultAttachments\:\:attach\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Attachment/Office/VaultAttachments.php
+
+		-
+			message: '#^Call to method getUsername\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<App\\Entity\\User\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$except of method Base\\Mailbox\\Entity\\Conversation\:\:getOthers\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$sender of method Base\\Mailbox\\Recipient\\Directory\:\:choices\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$sender of method Base\\Mailbox\\Recipient\\Directory\:\:resolve\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:compose\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:composeTo\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:composeToDesk\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:reply\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Desk\\Desks\:\:forUser\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Entity\\Conversation\:\:getParticipant\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:countInbox\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:createBoxQuery\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Service\\Mailbox\:\:archive\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Service\\Mailbox\:\:countUnread\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Service\\Mailbox\:\:delete\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Service\\Mailbox\:\:markRead\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Base\\Mailbox\\Service\\Mailbox\:\:star\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#2 \$user of method Base\\Mailbox\\Controller\\Client\\MailboxController\:\:find\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \#2 \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:findOneForUser\(\) expects App\\Entity\\User, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \$u of anonymous function has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Controller\\Client\\MailboxController\:\:find\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Controller\\Client\\MailboxController\:\:\$conversations \(Base\\Mailbox\\Repository\\ConversationRepository\) does not accept Doctrine\\ORM\\EntityRepository\<Base\\Mailbox\\Entity\\Conversation\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Controller/Client/MailboxController.php
+
+		-
+			message: '#^Call to method getRoles\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Desk/Desks.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Desk\\Desks\:\:conversations\(\) should return Base\\Mailbox\\Extension\\Repository\\DeskConversationRepository but returns Doctrine\\ORM\\EntityRepository\<Base\\Mailbox\\Extension\\Entity\\DeskConversation\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Desk/Desks.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Desk\\Desks\:\:countWaiting\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Desk/Desks.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Desk\\Desks\:\:forUser\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Desk/Desks.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Desk\\Desks\:\:staffs\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Desk/Desks.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Entity\\Conversation\:\:getLastSender\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Entity\\Conversation\:\:getOthers\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Parameter \$except of method Base\\Mailbox\\Entity\\Conversation\:\:getOthers\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Entity\\Conversation\:\:addParticipant\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Entity\\Conversation\:\:getParticipant\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Entity\\Conversation\:\:hasParticipant\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Entity\\Conversation\:\:isUnreadFor\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Entity\\Conversation\:\:\$lastSender has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Conversation.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Message.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Entity\\Message\:\:getSender\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Message.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Entity\\Message\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Message.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Entity\\Message\:\:setSender\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Message.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Entity\\Message\:\:\$sender has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Message.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Participant.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Entity\\Participant\:\:getUser\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Participant.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Entity\\Participant\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Participant.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Entity\\Participant\:\:setUser\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Participant.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Entity\\Participant\:\:\$user has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Entity/Participant.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Event\\MessageSentEvent\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Event/MessageSentEvent.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Event\\MessageSentEvent\:\:\$sender has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Event/MessageSentEvent.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Extension/Entity/DeskConversation.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Extension\\Entity\\DeskConversation\:\:getAuthor\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Extension/Entity/DeskConversation.php
+
+		-
+			message: '#^Parameter \$author of method Base\\Mailbox\\Extension\\Entity\\DeskConversation\:\:__construct\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Extension/Entity/DeskConversation.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Extension\\Entity\\DeskConversation\:\:\$author has unknown class App\\Entity\\User as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Extension/Entity/DeskConversation.php
+
+		-
+			message: '#^Call to method getEmail\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Notification/NotifyListener.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 4
+			path: src/Recipient/Directory.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Recipient\\Directory\:\:people\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/Directory.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Recipient\\Directory\:\:resolve\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/Directory.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Recipient\\Directory\:\:choices\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/Directory.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Recipient\\Directory\:\:people\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/Directory.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Recipient\\Directory\:\:resolve\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/Directory.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Recipient\\RecipientProviderInterface\:\:recipients\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/RecipientProviderInterface.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Recipient\\RecipientProviderInterface\:\:recipients\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Recipient/RecipientProviderInterface.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:countInbox\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/ConversationRepository.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:countUnread\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/ConversationRepository.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:createBoxQuery\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/ConversationRepository.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:createBoxQueryBuilder\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/ConversationRepository.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Repository\\ConversationRepository\:\:findOneForUser\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/ConversationRepository.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Repository\\MessageRepository\:\:findLastBySender\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Repository/MessageRepository.php
+
+		-
+			message: '#^Call to method getId\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Call to method getUsername\(\) on an unknown class App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Method Base\\Mailbox\\Service\\Mailbox\:\:resolveRecipients\(\) has invalid return type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$recipient of method Base\\Mailbox\\Service\\Mailbox\:\:assertHasRoom\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$recipients of method Base\\Mailbox\\Service\\Mailbox\:\:composeTo\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$recipients of method Base\\Mailbox\\Service\\Mailbox\:\:open\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:assertNotFlooding\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:compose\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:composeTo\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:composeToDesk\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:open\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:reply\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$sender of method Base\\Mailbox\\Service\\Mailbox\:\:resolveRecipients\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$user of anonymous function has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Service\\Mailbox\:\:archive\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Service\\Mailbox\:\:countUnread\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Service\\Mailbox\:\:delete\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Service\\Mailbox\:\:markRead\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Parameter \$user of method Base\\Mailbox\\Service\\Mailbox\:\:star\(\) has invalid type App\\Entity\\User\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Service\\Mailbox\:\:\$conversations \(Base\\Mailbox\\Repository\\ConversationRepository\) does not accept Doctrine\\ORM\\EntityRepository\<Base\\Mailbox\\Entity\\Conversation\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Service\\Mailbox\:\:\$messages \(Base\\Mailbox\\Repository\\MessageRepository\) does not accept Doctrine\\ORM\\EntityRepository\<Base\\Mailbox\\Entity\\Message\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Service/Mailbox.php
+
+		-
+			message: '#^Class App\\Entity\\User not found\.$#'
+			identifier: class.notFound
+			count: 3
+			path: src/Twig/MailboxTwigExtension.php
+
+		-
+			message: '#^Property Base\\Mailbox\\Twig\\MailboxTwigExtension\:\:\$mailbox in isset\(\) is not nullable nor uninitialized\.$#'
+			identifier: isset.initializedProperty
+			count: 1
+			path: src/Twig/MailboxTwigExtension.php

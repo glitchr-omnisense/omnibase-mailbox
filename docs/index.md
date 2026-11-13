@@ -5,7 +5,7 @@ member-to-member conversations with an inbox, sent and archive boxes, each membe
 star, archive and delete state, a box quota and flood control - and, each behind its option,
 desks ("the secretariat"), a directory of recipients, an e-mail that says a message awaits, a
 live refresh, attachments kept in omnibase/office's encrypted vault, and messages stored
-encrypted. It is a Symfony bundle (`Base\Mailbox\MailboxBundle`) on the core 3 or 4.
+encrypted. It is a Symfony bundle (`Base\Mailbox\MailboxBundle`) on omnisense/omnibase 5.1 or later.
 
 Three entities: `Conversation` (a subject, its messages), `Message` (a sender, plain text) and
 `Participant` (one row per member and conversation). A private message is deliberately not a

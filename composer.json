@@ -34,10 +34,13 @@
         "symfony/form": "^6.0|^7.0|^8.0",
         "symfony/security-bundle": "^6.0|^7.0|^8.0",
         "doctrine/orm": "^2.15|^3.0",
-        "omnibridge/symfony": "1.x-dev",
-        "omnisense/omnibase": "3.0.*-dev || 4.0.*-dev || 5.0.*-dev"
+        "doctrine/doctrine-bundle": "^2.11|^3.0",
+        "omnibridge/doctrine": "^1.0",
+        "omnibridge/symfony": "^1.1",
+        "omnisense/omnibase": "^5.1"
     },
     "require-dev": {
+        "omnibase/office": "^1.0",
         "phpunit/phpunit": "^9.6",
         "symfony/framework-bundle": "^6.0|^7.0|^8.0",
         "symfony/twig-bundle": "^6.0|^7.0|^8.0",
@@ -52,7 +55,6 @@
             "*": "dist"
         },
         "sort-packages": true,
-        "minimum-stability": "dev",
         "allow-plugins": {
             "omnibridge/composer": true,
             "php-http/discovery": true
@@ -62,5 +64,10 @@
         "ext-sodium": "Subjects and messages stored encrypted (mailbox.encrypt)",
         "omnibase/office": "Attachments kept in the office's encrypted document vault (mailbox.attachments)",
         "symfony/mailer": "The notice that a message awaits (mailbox.notify)"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
     }
 }
