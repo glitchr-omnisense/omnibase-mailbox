@@ -19,7 +19,7 @@ What `composer.json` requires: PHP 8.2 or later, `doctrine/orm` 2.15 or 3,
 // config/bundles.php
 return [
     // ...
-    Base\BaseBundle::class => ['all' => true],
+    Omnibridge\Symfony\Omnibase\BaseBundle::class => ['all' => true],
     Base\Mailbox\MailboxBundle::class => ['all' => true],
 ];
 ```
