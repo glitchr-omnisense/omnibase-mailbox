@@ -35,9 +35,9 @@
         "symfony/security-bundle": "^6.0|^7.0|^8.0",
         "doctrine/orm": "^2.15|^3.0",
         "doctrine/doctrine-bundle": "^2.11|^3.0",
-        "omnibridge/doctrine": "^1.0",
-        "omnibridge/symfony": "^1.1",
-        "omnisense/omnibase": "^5.1"
+        "omnibridge/doctrine": "^1.0 || ^2.0",
+        "omnibridge/symfony": "^1.1 || ^2.0",
+        "omnisense/omnibase": "^5.1 || ^6.0"
     },
     "require-dev": {
         "omnibase/office": "^1.0",
