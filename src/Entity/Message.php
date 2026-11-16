@@ -5,7 +5,7 @@ namespace Base\Mailbox\Entity;
 use App\Entity\User;
 use Base\Database\Attribute\Timestamp;
 use Base\Mailbox\Repository\MessageRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** One message of a conversation. Plain text; line breaks are kept, nothing else is interpreted. */

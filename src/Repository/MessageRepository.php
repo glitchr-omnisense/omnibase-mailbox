@@ -2,8 +2,9 @@
 
 namespace Base\Mailbox\Repository;
 
-use App\Entity\User;
-use Omnibridge\Doctrine\Omnibase\Database\Repository\ServiceEntityRepository;
+use Base\Database\Repository\Finder\Key;
+use Base\Entity\User;
+use Base\Database\Repository\ServiceEntityRepository;
 use Base\Mailbox\Entity\Message;
 
 /**
@@ -17,10 +18,6 @@ class MessageRepository extends ServiceEntityRepository
     /** The member's latest message, whatever the conversation - the flood check. */
     public function findLastBySender(User $sender): ?Message
     {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.sender = :sender')->setParameter('sender', $sender)
-            ->orderBy('m.createdAt', \SortDirection::Descending)->addOrderBy('m.id', \SortDirection::Descending)
-            ->setMaxResults(1)
-            ->getQuery()->getOneOrNullResult();
+        return $this->findOneBy(['sender' => Key::of($sender)], ['createdAt' => \SortDirection::Descending, 'id' => \SortDirection::Descending]);
     }
 }

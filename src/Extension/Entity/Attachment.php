@@ -4,7 +4,7 @@ namespace Base\Mailbox\Extension\Entity;
 
 use Base\Mailbox\Entity\Message;
 use Base\Mailbox\Extension\Repository\AttachmentRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A file sent with a message: only where it is kept - the id of its

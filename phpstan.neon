@@ -3,9 +3,15 @@
 # one, then drop its entry.
 includes:
     - phpstan-baseline.neon
+    # The finder language (findByXNull(), sumOfXBy()...) and the entities' __call() accessors, as omnisense/omnibase describes them.
+    - vendor/omnisense/omnibase/extension.neon
 
 parameters:
     level: 5
     paths:
         - src
+    # App\Entity\User and the other App\ classes as omnibridge/composer writes them (App\X extends Base\X): what a
+    # site has, so a Base\ type given an App\ object is understood.
+    scanDirectories:
+        - vendor/composer/omnibridge/stubs
     reportUnmatchedIgnoredErrors: false

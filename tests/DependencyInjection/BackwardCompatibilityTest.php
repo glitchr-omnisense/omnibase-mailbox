@@ -57,8 +57,9 @@ final class BackwardCompatibilityTest extends TestCase
         $parameters = (new \ReflectionClass(Mailbox::class))->getConstructor()->getParameters();
         $names = array_map(static fn (\ReflectionParameter $p) => $p->getName(), $parameters);
 
-        self::assertSame(['entityManager', 'security', 'inboxLimit', 'floodInterval', 'subjectMaxLength', 'contentMaxLength', 'maxRecipients'], \array_slice($names, 0, 7), 'as they were');
-        foreach (\array_slice($parameters, 7) as $added) {
+        // 1.0: the unit of work and the repositories where the entity manager was, then the limits as they were.
+        self::assertSame(['unitOfWork', 'repositories', 'security', 'inboxLimit', 'floodInterval', 'subjectMaxLength', 'contentMaxLength', 'maxRecipients'], \array_slice($names, 0, 8), 'as they were');
+        foreach (\array_slice($parameters, 8) as $added) {
             self::assertTrue($added->isDefaultValueAvailable() && null === $added->getDefaultValue(), $added->getName().' is optional');
         }
         self::assertTrue((new \ReflectionMethod(Mailbox::class, 'compose'))->isPublic());

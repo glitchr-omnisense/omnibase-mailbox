@@ -6,7 +6,7 @@ use App\Entity\User;
 use Base\Mailbox\Entity\Conversation;
 use Base\Mailbox\Extension\Entity\DeskConversation;
 use Base\Mailbox\Extension\Repository\DeskConversationRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Repository\Repositories;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 
@@ -20,7 +20,7 @@ class Desks
 {
     /** @param array<string, array{role: string, label: ?string}> $desks */
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly Repositories $repositories,
         private readonly RoleHierarchyInterface $roles,
         #[Autowire('%mailbox.desks%')] private readonly array $desks = [],
     ) {
@@ -87,6 +87,9 @@ class Desks
      */
     public function conversations(): DeskConversationRepository
     {
-        return $this->entityManager->getRepository(DeskConversation::class);
+        $repository = $this->repositories->of(DeskConversation::class);
+        \assert($repository instanceof DeskConversationRepository);
+
+        return $repository;
     }
 }

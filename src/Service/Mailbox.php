@@ -2,6 +2,8 @@
 
 namespace Base\Mailbox\Service;
 
+use Base\Database\Repository\Finder\Group;
+use Base\Database\Repository\Repositories;
 use App\Entity\User;
 use Base\Mailbox\Crypto\MessageCipher;
 use Base\Mailbox\Desk\Desks;
@@ -11,7 +13,7 @@ use Base\Mailbox\Event\MessageSentEvent;
 use Base\Mailbox\Extension\Entity\DeskConversation;
 use Base\Mailbox\Repository\ConversationRepository;
 use Base\Mailbox\Repository\MessageRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -30,7 +32,8 @@ class Mailbox
     private readonly MessageRepository $messages;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
+        private readonly Repositories $repositories,
         private readonly Security $security,
         #[Autowire('%mailbox.inbox_limit%')] private readonly int $inboxLimit = 100,
         #[Autowire('%mailbox.flood_interval%')] private readonly int $floodInterval = 120,
@@ -42,8 +45,11 @@ class Mailbox
         private readonly ?Desks $desks = null,
         private readonly ?EventDispatcherInterface $dispatcher = null,
     ) {
-        $this->conversations = $entityManager->getRepository(Conversation::class);
-        $this->messages = $entityManager->getRepository(Message::class);
+        $conversations = $repositories->of(Conversation::class);
+        $messages = $repositories->of(Message::class);
+        \assert($conversations instanceof ConversationRepository && $messages instanceof MessageRepository);
+        $this->conversations = $conversations;
+        $this->messages = $messages;
     }
 
     /**
@@ -126,11 +132,11 @@ class Mailbox
         $message = new Message($sender, $this->seal($content));
         $conversation->addMessage($message);
 
-        $this->entityManager->persist($conversation);
+        $this->unitOfWork->persist($conversation);
         if (null !== $desk) {
-            $this->entityManager->persist(new DeskConversation($conversation, $desk, $sender));
+            $this->unitOfWork->persist(new DeskConversation($conversation, $desk, $sender));
         }
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
         $this->dispatcher?->dispatch(new MessageSentEvent($conversation, $message, $sender, $desk, true));
 
         return $conversation;
@@ -175,7 +181,7 @@ class Mailbox
         // A conversation written to a desk: its staff join it by answering, and its author may write again before anyone has.
         $desk = $this->desks?->of($conversation);
         if (null !== $desk && !$conversation->hasParticipant($sender) && $this->desks->staffs($sender, $conversation)) {
-            $this->entityManager->persist($conversation->addParticipant($sender));
+            $this->unitOfWork->persist($conversation->addParticipant($sender));
         }
         if (!$conversation->hasParticipant($sender) || $conversation->getParticipant($sender)?->isDeleted()) {
             throw new MailboxException('error.not_yours');
@@ -197,8 +203,8 @@ class Mailbox
             }
         }
 
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+        $this->unitOfWork->persist($message);
+        $this->unitOfWork->flush();
         $this->dispatcher?->dispatch(new MessageSentEvent($conversation, $message, $sender, $desk?->getDesk()));
 
         return $message;
@@ -209,7 +215,7 @@ class Mailbox
         $participant = $conversation->getParticipant($user);
         if ($participant && $conversation->isUnreadFor($user)) {
             $participant->markRead();
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
     }
 
@@ -218,7 +224,7 @@ class Mailbox
         $participant = $conversation->getParticipant($user);
         if ($participant) {
             $archive ? $participant->archive() : $participant->unarchive();
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
     }
 
@@ -227,7 +233,7 @@ class Mailbox
         $participant = $conversation->getParticipant($user);
         if ($participant) {
             $participant->setStarred($starred);
-            $this->entityManager->flush();
+            $this->unitOfWork->flush();
         }
     }
 
@@ -251,10 +257,10 @@ class Mailbox
             }
         }
         if (!$kept) {
-            $this->entityManager->remove($conversation);
+            $this->unitOfWork->remove($conversation);
         }
 
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
     }
 
     public function countUnread(User $user): int
@@ -287,13 +293,10 @@ class Mailbox
             throw new MailboxException('error.too_many_recipients', ['%max%' => $this->maxRecipients]);
         }
 
-        $users = $this->entityManager->getRepository(User::class);
+        $users = $this->repositories->of(User::class);
         $recipients = [];
         foreach ($usernames as $username) {
-            $recipient = $users->createQueryBuilder('u')
-                ->andWhere('LOWER(u.username) = :username')->setParameter('username', mb_strtolower($username))
-                ->setMaxResults(1)
-                ->getQuery()->getOneOrNullResult();
+            $recipient = $users->findOneBy([Group::by('InsensitiveUsername', mb_strtolower($username))]);
 
             if (!$recipient instanceof User) {
                 throw new MailboxException('error.unknown_recipient', ['%username%' => $username]);

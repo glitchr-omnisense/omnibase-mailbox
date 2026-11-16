@@ -8,7 +8,7 @@ use Base\Mailbox\Repository\ConversationRepository;
 use Base\Traits\BaseTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A conversation: a subject, its participants, its messages. Replies stay in

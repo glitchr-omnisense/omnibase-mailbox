@@ -5,7 +5,7 @@ namespace Base\Mailbox\Extension\Entity;
 use App\Entity\User;
 use Base\Mailbox\Entity\Conversation;
 use Base\Mailbox\Extension\Repository\DeskConversationRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * A conversation written to a desk rather than to someone: its author is

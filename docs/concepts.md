@@ -39,7 +39,7 @@ deleting a conversation never removes it from the other's box.
 
 ## The boxes
 
-`ConversationRepository::createBoxQuery(User $user, string $box)` - the member's rows not deleted,
+`ConversationRepository::boxCriteria(User $user, string $box)` (the criteria `PaginatorInterface::paginate($conversations, $criteria, ConversationRepository::BOX_ORDER, page: ...)` pages) - the member's rows not deleted,
 newest message first:
 
 | Box | Holds |

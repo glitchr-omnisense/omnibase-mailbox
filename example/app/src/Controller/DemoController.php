@@ -6,7 +6,8 @@ use App\Entity\User;
 use Base\Mailbox\Entity\Conversation;
 use Base\Mailbox\Service\Mailbox;
 use Base\Mailbox\Service\MailboxException;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Contract\UnitOfWork;
+use Base\Database\Repository\Repositories;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class DemoController extends AbstractController
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
+        private readonly Repositories $repositories,
         private readonly Mailbox $mailbox,
         private readonly Security $security,
     ) {
@@ -85,7 +87,7 @@ class DemoController extends AbstractController
     {
         // The identifier is the email; the demo's members are told apart by username.
         $next = 'Alice' === $this->getUser()?->getUsername() ? 'Carol' : 'Alice';
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $next]);
+        $user = $this->repositories->of(User::class)->findOneBy(['username' => $next]);
         if ($user) {
             $this->security->login($user, 'security.authenticator.form_login.main');
         }
@@ -96,7 +98,7 @@ class DemoController extends AbstractController
     /** @return array{0: User, 1: User, 2: string} */
     private function seed(): array
     {
-        $users = $this->entityManager->getRepository(User::class);
+        $users = $this->repositories->of(User::class);
         $created = [];
 
         if (!$alice = $users->findOneBy(['username' => 'Alice'])) {
@@ -107,9 +109,9 @@ class DemoController extends AbstractController
             $carol = $this->member('Carol', 'carol@example.org');
             $created[] = 'member Carol';
         }
-        $this->entityManager->flush();
+        $this->unitOfWork->flush();
 
-        if (!$this->entityManager->getRepository(Conversation::class)->findOneBy([])) {
+        if (!$this->repositories->of(Conversation::class)->findOneBy([])) {
             $conversation = $this->mailbox->compose($carol, ['Alice'], 'Bienvenue dans la communauté', "Salut Alice !\n\nCe message a été envoyé par le démonstrateur. Réponds-moi depuis ta boîte : https://example.org");
             $this->mailbox->reply($alice, $conversation, 'Merci Carol, bien reçu !');
             $this->mailbox->reply($carol, $conversation, 'Et une troisième ligne, pour que la conversation ait de quoi défiler.');
@@ -131,13 +133,13 @@ class DemoController extends AbstractController
         $user->setPlainPassword('demo');
         $user->setRoles(['ROLE_USER']);
         $user->verify();
-        $this->entityManager->persist($user);
+        $this->unitOfWork->persist($user);
 
         return $user;
     }
 
     private function conversations(): \Base\Mailbox\Repository\ConversationRepository
     {
-        return $this->entityManager->getRepository(Conversation::class);
+        return $this->repositories->of(Conversation::class);
     }
 }

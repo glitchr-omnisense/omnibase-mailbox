@@ -4,7 +4,7 @@ namespace Base\Mailbox\Entity;
 
 use App\Entity\User;
 use Base\Mailbox\Repository\ParticipantRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Base\Mapping as ORM;
 
 /**
  * One member's view of a conversation: when they last read it, whether they

@@ -2,18 +2,22 @@
 
 namespace Base\Mailbox\Extension\Repository;
 
+use Base\Database\Repository\Finder\Field;
 use Base\Mailbox\Entity\Conversation;
 use Base\Mailbox\Extension\Entity\DeskConversation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
-use Doctrine\Persistence\ManagerRegistry;
+use Base\Database\Repository\Finders;
+use Base\Database\Repository\ServiceEntityRepository;
 
-/** @extends ServiceEntityRepository<DeskConversation> */
+/**
+ * @method DeskConversation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DeskConversation|null findOneBy(array $criteria, ?array $orderBy = null)
+ * @method DeskConversation[]    findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+ */
 class DeskConversationRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Finders $finders)
     {
-        parent::__construct($registry, DeskConversation::class);
+        parent::__construct($finders, DeskConversation::class);
     }
 
     public function findOneByConversation(Conversation $conversation): ?DeskConversation
@@ -21,30 +25,21 @@ class DeskConversationRepository extends ServiceEntityRepository
         return $this->findOneBy(['conversation' => $conversation]);
     }
 
-    /** @param list<string> $desks the conversations written to those desks, the latest first */
-    public function createDeskQuery(array $desks): Query
+    /**
+     * @param list<string> $desks
+     *
+     * @return list<int> the conversations written to those desks (a desk holds few): what the desk box pages, as the
+     *                   criterion `'id' => ...` of the conversations (Conversation has no association to its desk row)
+     */
+    public function conversationIds(array $desks): array
     {
-        return $this->getEntityManager()->createQueryBuilder()
-            ->select('c')->from(Conversation::class, 'c')
-            ->innerJoin(DeskConversation::class, 'd', 'WITH', 'd.conversation = c')
-            ->leftJoin('c.lastSender', 'ls')->addSelect('ls')
-            ->andWhere('d.desk IN (:desks)')->setParameter('desks', $desks ?: [''])
-            ->orderBy('c.lastMessageAt', 'DESC')
-            ->getQuery();
+        return array_values(array_unique(array_map(static fn (DeskConversation $row): int => (int) $row->getConversation()->getId(), $desks ? $this->findBy(['desk' => $desks]) : [])));
     }
 
-    /** @param list<string> $desks how many wait for an answer: their author wrote last */
+    /** @param list<string> $desks how many wait for an answer: their author wrote last. */
     public function countWaiting(array $desks): int
     {
-        if ([] === $desks) {
-            return 0;
-        }
-
-        return (int) $this->createQueryBuilder('d')->select('COUNT(d.id)')
-            ->innerJoin('d.conversation', 'c')
-            ->andWhere('d.desk IN (:desks)')->setParameter('desks', $desks)
-            ->andWhere('c.lastSender = d.author')
-            ->getQuery()->getSingleScalarResult();
+        return [] === $desks ? 0 : $this->count(['desk' => $desks, 'conversation.lastSender' => Field::of('author')]);
     }
 
     /**
@@ -54,15 +49,6 @@ class DeskConversationRepository extends ServiceEntityRepository
      */
     public function findWaiting(array $desks, int $limit = 5): array
     {
-        if ([] === $desks) {
-            return [];
-        }
-
-        return $this->createQueryBuilder('d')->addSelect('c')
-            ->innerJoin('d.conversation', 'c')
-            ->andWhere('d.desk IN (:desks)')->setParameter('desks', $desks)
-            ->andWhere('c.lastSender = d.author')
-            ->orderBy('c.lastMessageAt', 'ASC')->setMaxResults($limit)
-            ->getQuery()->getResult();
+        return [] === $desks ? [] : $this->findBy(['desk' => $desks, 'conversation.lastSender' => Field::of('author')], ['conversation.lastMessageAt' => 'ASC'], $limit);
     }
 }

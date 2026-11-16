@@ -14,7 +14,7 @@ use Base\Mailbox\Repository\ConversationRepository;
 use Base\Mailbox\Service\Mailbox;
 use Base\Mailbox\Service\MailboxException;
 use Base\Service\PaginatorInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Repository\Repositories;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -38,7 +38,7 @@ class MailboxController extends AbstractController
     private readonly ConversationRepository $conversations;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
+        Repositories $repositories,
         private readonly Mailbox $mailbox,
         private readonly PaginatorInterface $paginator,
         private readonly TranslatorInterface $translator,
@@ -51,13 +51,16 @@ class MailboxController extends AbstractController
         #[Autowire('%mailbox.poll%')] private readonly int $poll = 0,
         #[Autowire(service: 'mailbox.attachments')] private readonly ?object $attachments = null,
     ) {
-        $this->conversations = $entityManager->getRepository(Conversation::class);
+        $conversations = $repositories->of(Conversation::class);
+        \assert($conversations instanceof ConversationRepository);
+        $this->conversations = $conversations;
     }
 
     #[Route('/messagerie/{box}', name: 'mailbox_index', defaults: ['box' => 'inbox'], requirements: ['box' => 'inbox|archive|sent|desk'])]
     public function Index(Request $request, string $box = ConversationRepository::BOX_INBOX): Response
     {
         $this->denyAccessUnlessGranted($this->requiredRole);
+        /** @var User $user the role above lets in signed-in members only */
         $user = $this->getUser();
 
         if ('desk' === $box) {
@@ -66,11 +69,12 @@ class MailboxController extends AbstractController
             if ([] === $mine) {
                 throw $this->createNotFoundException('No desk.');
             }
-            $query = $this->desks->conversations()->createDeskQuery($mine);
+            // An empty list matches nothing: a desk without conversations shows an empty page.
+            $criteria = ['id' => $this->desks->conversations()->conversationIds($mine)];
         } else {
-            $query = $this->conversations->createBoxQuery($user, $box);
+            $criteria = $this->conversations->boxCriteria($user, $box);
         }
-        $conversations = $this->paginator->paginate($query, $request->query->getInt('page', 1), $this->perPage);
+        $conversations = $this->paginator->paginate($this->conversations, $criteria, ConversationRepository::BOX_ORDER, page: $request->query->getInt('page', 1), pageSize: $this->perPage);
 
         return $this->render('@Mailbox/client/index.html.twig', [
             'box' => $box,
@@ -226,6 +230,7 @@ class MailboxController extends AbstractController
     public function Action(Request $request, int $id, string $action): Response
     {
         $this->denyAccessUnlessGranted($this->requiredRole);
+        /** @var User $user the role above lets in signed-in members only */
         $user = $this->getUser();
 
         $conversation = $this->conversations->findOneForUser($id, $user);
@@ -263,6 +268,7 @@ class MailboxController extends AbstractController
     public function Batch(Request $request, string $action): Response
     {
         $this->denyAccessUnlessGranted($this->requiredRole);
+        /** @var User $user the role above lets in signed-in members only */
         $user = $this->getUser();
 
         if (!$this->isCsrfTokenValid('mailbox_batch', (string) $request->request->get('_token'))) {

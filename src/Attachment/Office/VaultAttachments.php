@@ -6,12 +6,14 @@ use App\Entity\User;
 use Base\Mailbox\Entity\Conversation;
 use Base\Mailbox\Entity\Message;
 use Base\Mailbox\Extension\Entity\Attachment;
+use Base\Mailbox\Extension\Repository\AttachmentRepository;
 use Base\Mailbox\Service\MailboxException;
 use Base\Office\Enum\DocumentKind;
 use Base\Office\Exception\KeyMissingException;
 use Base\Office\Exception\ShareException;
 use Base\Office\Share\DocumentVault;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Repository\Repositories;
+use Base\Contract\UnitOfWork;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -28,7 +30,8 @@ class VaultAttachments
 
     public function __construct(
         private readonly DocumentVault $vault,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly UnitOfWork $unitOfWork,
+        private readonly Repositories $repositories,
         #[Autowire('%mailbox.attachments%')] private readonly bool $enabled = false,
     ) {
     }
@@ -53,8 +56,8 @@ class VaultAttachments
             throw new MailboxException('error.no_key');
         }
         $attachment = new Attachment($message, (int) $document->getId(), $document->isImage());
-        $this->entityManager->persist($attachment);
-        $this->entityManager->flush();
+        $this->unitOfWork->persist($attachment);
+        $this->unitOfWork->flush();
 
         return $attachment;
     }
@@ -62,6 +65,14 @@ class VaultAttachments
     /** @return array<int, list<Attachment>> by message id */
     public function of(Conversation $conversation): array
     {
-        return $this->enabled ? $this->entityManager->getRepository(Attachment::class)->findByConversation($conversation) : [];
+        return $this->enabled ? $this->attachments()->findByConversation($conversation) : [];
+    }
+
+    private function attachments(): AttachmentRepository
+    {
+        $repository = $this->repositories->of(Attachment::class);
+        \assert($repository instanceof AttachmentRepository);
+
+        return $repository;
     }
 }

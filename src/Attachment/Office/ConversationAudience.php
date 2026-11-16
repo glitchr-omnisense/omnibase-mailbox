@@ -7,7 +7,7 @@ use Base\Mailbox\Desk\Desks;
 use Base\Mailbox\Entity\Conversation;
 use Base\Office\Entity\Share\Document;
 use Base\Office\Share\AudienceResolverInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Base\Database\Repository\Repositories;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 final class ConversationAudience implements AudienceResolverInterface
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly Desks $desks)
+    public function __construct(private readonly Repositories $repositories, private readonly Desks $desks)
     {
     }
 
@@ -27,7 +27,7 @@ final class ConversationAudience implements AudienceResolverInterface
         if (!str_starts_with($context, VaultAttachments::CONTEXT) || self::REVOKE === $attribute || !$user instanceof User) {
             return null;
         }
-        $conversation = $this->entityManager->getRepository(Conversation::class)->find((int) substr($context, \strlen(VaultAttachments::CONTEXT)));
+        $conversation = $this->repositories->of(Conversation::class)->find((int) substr($context, \strlen(VaultAttachments::CONTEXT)));
         if (!$conversation instanceof Conversation) {
             return null;
         }
