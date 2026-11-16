@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - 1.0.0
+## 2.0.0
 
 omnibase/mailbox is private messaging for omnisense/omnibase: member-to-member conversations with an inbox, sent and
 archive boxes, per-member read and delete state, a box quota and flood control, optional desks and attachments kept in

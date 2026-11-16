@@ -35,13 +35,13 @@
         "symfony/security-bundle": "^6.0|^7.0|^8.0",
         "doctrine/orm": "^2.15|^3.0",
         "doctrine/doctrine-bundle": "^2.11|^3.0",
-        "omnibridge/doctrine": "^1.0",
-        "omnibridge/symfony": "^1.0",
-        "omnisense/omnibase": "^1.0"
+        "omnibridge/doctrine": "^3.0",
+        "omnibridge/symfony": "^3.0",
+        "omnisense/omnibase": "^7.0"
     },
     "require-dev": {
-        "omnibridge/eloquent": "^1.0",
-        "omnibase/office": "^1.0",
+        "omnibridge/eloquent": "^2.0",
+        "omnibase/office": "^2.0",
         "phpunit/phpunit": "^9.6",
         "symfony/framework-bundle": "^6.0|^7.0|^8.0",
         "symfony/twig-bundle": "^6.0|^7.0|^8.0",
@@ -68,7 +68,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "1.x-dev"
+            "dev-main": "2.x-dev"
         }
     }
 }
