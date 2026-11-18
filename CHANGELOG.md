@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- omnibridge/doctrine `^3.0|^4.0`: the bundle runs on omnibridge/doctrine 4.0 (dates read as `\DateTimeImmutable` in UTC) as on 3.x.
+
 ## 2.0.0
 
 omnibase/mailbox is private messaging for omnisense/omnibase: member-to-member conversations with an inbox, sent and
