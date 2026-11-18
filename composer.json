@@ -35,7 +35,7 @@
         "symfony/security-bundle": "^6.0|^7.0|^8.0",
         "doctrine/orm": "^2.15|^3.0",
         "doctrine/doctrine-bundle": "^2.11|^3.0",
-        "omnibridge/doctrine": "^3.0",
+        "omnibridge/doctrine": "^3.0|^4.0",
         "omnibridge/symfony": "^3.0",
         "omnisense/omnibase": "^7.0"
     },
